@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:first_task/dashboardScreen.dart';
 import 'package:first_task/login.dart';
+import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:first_task/registerUser.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -42,13 +44,16 @@ class SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 2),(){
       if(isLoggedIn != null){
         if(isLoggedIn){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+          GoRouter.of(context).pushNamed(MyAppRouteConstants.dashboardRouteName);
+          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
         }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
+          GoRouter.of(context).pushNamed(MyAppRouteConstants.loginRouteName);
+          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
         }
       }
       else{
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
+        GoRouter.of(context).pushNamed(MyAppRouteConstants.loginRouteName);
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
       }
     });
   }

@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:first_task/login.dart';
+import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:first_task/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -51,7 +53,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             SharedPreferences sharedpref= await SharedPreferences.getInstance();
             sharedpref.setBool(SplashScreenState.KEYLOGIN,false);
 
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
+            GoRouter.of(context).pushNamed(MyAppRouteConstants.loginRouteName);
+            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
 
         }, child: Text("log out"),
       ),

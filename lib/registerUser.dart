@@ -1,24 +1,31 @@
 import 'package:first_task/login.dart';
+import 'package:first_task/login_state.dart';
+import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class RegisterUser extends StatefulWidget {
+class RegisterUser extends ConsumerStatefulWidget {
   const RegisterUser({super.key});
 
   @override
-  State<RegisterUser> createState() => _RegisterUserState();
+  _RegisterUserState createState() => _RegisterUserState();
 }
 
-class _RegisterUserState extends State<RegisterUser> {
+class _RegisterUserState extends ConsumerState<RegisterUser> {
 
   final emailController= TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
-  bool passwordVisible=true;
+  bool passwordVisible=false;
 
   @override
   Widget build(BuildContext context) {
+
+    final providerstate=ref.watch(loginStateNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(title: Text("Register User"),),
       body: Center(
@@ -53,9 +60,10 @@ class _RegisterUserState extends State<RegisterUser> {
                     helperText: "Password must contain special characters- @,#,&",
                   suffixIcon: IconButton(icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off),
                     onPressed: () {
-                      setState(() {
-                        passwordVisible = !passwordVisible;
-                      },);
+                      // setState(() {
+                      //   passwordVisible = !passwordVisible;
+                      // },);
+                      ref.watch(loginStateNotifierProvider.notifier).togglePasswordVisibility();
                     },),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(21)),
                 ),),
@@ -70,10 +78,13 @@ class _RegisterUserState extends State<RegisterUser> {
                   sharedpref.setString('password', passwordController.text);
                   sharedpref.setString('email', emailController.text);
 
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LogIn()),
-                  );
+                  GoRouter.of(context).pushNamed(MyAppRouteConstants.loginRouteName);
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => LogIn()),
+                  // );
+
+
                 }
                 else{
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill all the fields to register..."),duration: Duration(seconds:2),));

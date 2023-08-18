@@ -1,7 +1,11 @@
 import "package:first_task/dashboardScreen.dart";
+import "package:first_task/login_state.dart";
+import "package:first_task/project/routes/app_route_constants.dart";
 import "package:first_task/registerUser.dart";
 import "package:first_task/splash_screen.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 
@@ -10,19 +14,20 @@ import "package:shared_preferences/shared_preferences.dart";
 //   runApp(LogIn());
 // }
 
-class LogIn extends StatefulWidget {
+class LogIn extends ConsumerStatefulWidget {
   const LogIn({super.key});
 
   @override
-  State<LogIn> createState() => _LogInState();
+  _LogInState createState() => _LogInState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LogInState extends ConsumerState<LogIn> {
+
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool passwordVisible=true;
+  bool passwordVisible=false;
   bool isLoading = false;
 
   late SharedPreferences loginData;
@@ -36,6 +41,9 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context)
   {
+
+    final providerstate = ref.watch(loginStateNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(title: Text("Sign In"),),
       body: Center(
@@ -68,10 +76,11 @@ class _LogInState extends State<LogIn> {
                     suffixIcon: IconButton(
                       icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off
                       ), onPressed: () {
-                        setState(() {
-                          passwordVisible = !passwordVisible;
-                        },
-                        );
+                        // setState(() {
+                        //   passwordVisible = !passwordVisible;
+                        // },
+                        // );
+                      ref.watch(loginStateNotifierProvider.notifier).togglePasswordVisibility();
                     },
                     ),
                     alignLabelWithHint: false,
@@ -85,9 +94,11 @@ class _LogInState extends State<LogIn> {
               ElevatedButton(onPressed:  isLoading ? null : () async{
 
                 if(usernameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-                  setState(() {
-                    isLoading = true;
-                  });
+                  // setState(() {
+                  //   isLoading = true;
+                  // });
+
+                  ref.watch(loginStateNotifierProvider.notifier).setLoading(isLoading=true);
 
                   //if credentials are correct- succesfully logged in
                   var sharedpef = await SharedPreferences.getInstance();
@@ -97,15 +108,17 @@ class _LogInState extends State<LogIn> {
 
                   if(usernameController.text == savedUsername && passwordController.text == savedPassword) {
                     sharedpef.setBool(SplashScreenState.KEYLOGIN, true);
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (context) => DashboardScreen()));
+
+                    GoRouter.of(context).pushNamed(MyAppRouteConstants.dashboardRouteName);
+                    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+
                   }else{
                     //incorrect credentials
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid Credentials'),duration: Duration(seconds: 2),));
-                    setState(() {
-                    isLoading = false;
-                    });
+                    // setState(() {
+                    // isLoading = false;
+                    // });
+                    ref.watch(loginStateNotifierProvider.notifier).setLoading(isLoading=false);
                   }
                 }else{
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Both fields are required to log in..."),duration: Duration(seconds: 2),));
@@ -116,7 +129,9 @@ class _LogInState extends State<LogIn> {
               SizedBox(height: 18,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterUser()));
+                  GoRouter.of(context).pushNamed(MyAppRouteConstants.registerRouteName);
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterUser()));
+
                 },child: Text('Do not have an account Register here',style: TextStyle(
                 color: Colors.blue,decoration: TextDecoration.underline
               ),),
