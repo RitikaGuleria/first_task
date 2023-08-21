@@ -16,8 +16,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
-
-  static const String KEYLOGIN="LOGIN";
+  static const String KEYLOGIN = "LOGIN";
 
   @override
   void initState() {
@@ -31,27 +30,35 @@ class SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         color: Colors.lightBlue,
-        child: Center(child: Text('Classic',style: TextStyle(fontWeight: FontWeight.w300,fontSize: 34,color: Colors.white,fontStyle: FontStyle.italic),),),
+        child: const Center(
+          child: Text(
+            'Classic',
+            style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 34,
+                color: Colors.white,
+                fontStyle: FontStyle.italic),
+          ),
+        ),
       ),
     );
   }
 
-  void whereToGo() async{
-
+  void whereToGo() async {
     var sharedPref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedPref.getBool(KEYLOGIN);
 
-    Timer(Duration(seconds: 2),(){
-      if(isLoggedIn != null){
-        if(isLoggedIn){
-          GoRouter.of(context).pushNamed(MyAppRouteConstants.dashboardRouteName);
+    Timer(const Duration(seconds: 2), () {
+      if (isLoggedIn != null) {
+        if (isLoggedIn) {
+          GoRouter.of(context)
+              .pushNamed(MyAppRouteConstants.dashboardRouteName);
           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
-        }else{
+        } else {
           GoRouter.of(context).pushNamed(MyAppRouteConstants.loginRouteName);
           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
         }
-      }
-      else{
+      } else {
         GoRouter.of(context).pushNamed(MyAppRouteConstants.loginRouteName);
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
       }
