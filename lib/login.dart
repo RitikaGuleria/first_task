@@ -1,4 +1,4 @@
-import "package:first_task/dashboardScreen.dart";
+import 'package:first_task/repository/dashboardScreen.dart';
 import "package:first_task/login_state.dart";
 import "package:first_task/project/routes/app_route_constants.dart";
 import "package:first_task/registerUser.dart";

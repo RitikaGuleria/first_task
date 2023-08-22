@@ -1,4 +1,5 @@
-import 'package:first_task/dashboardScreen.dart';
+import 'package:first_task/repository/APIService&DashboardScreen.dart';
+import 'package:first_task/repository/dashboardScreen.dart';
 import 'package:first_task/login.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:first_task/registerUser.dart';
@@ -34,7 +35,7 @@ class MyAppRouter {
         name: MyAppRouteConstants.dashboardRouteName,
         path: MyAppRouteConstants.dashboardRouteName,
         builder: (context, state) {
-          return const DashboardScreen();
+          return  APIService();
         },
       )
     ],
