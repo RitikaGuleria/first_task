@@ -1,13 +1,10 @@
-import 'package:first_task/repository/APIService&DashboardScreen.dart';
-import 'package:first_task/repository/dashboardScreen.dart';
 import 'package:first_task/login.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:first_task/registerUser.dart';
 import 'package:first_task/splash_screen.dart';
+import 'package:first_task/ui/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../repository/APIServiceDashboardScreen.dart';
 
 class MyAppRouter {
   static final GoRouter router = GoRouter(
@@ -37,7 +34,7 @@ class MyAppRouter {
         name: MyAppRouteConstants.dashboardRouteName,
         path: MyAppRouteConstants.dashboardRouteName,
         builder: (context, state) {
-          return  APIService();
+          return  DashboardScreeen();
         },
       )
     ],

@@ -48,7 +48,7 @@ class SplashScreenState extends State<SplashScreen> {
     var sharedPref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedPref.getBool(KEYLOGIN);
 
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 1), () {
       if (isLoggedIn != null) {
         if (isLoggedIn) {
           GoRouter.of(context)
