@@ -132,7 +132,7 @@ class _LogInState extends ConsumerState<LogIn> {
                   GoRouter.of(context).pushNamed(MyAppRouteConstants.registerRouteName);
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterUser()));
 
-                },child: Text('Do not have an account Register here',style: TextStyle(
+                },child: Text('Do not have an account? Register here',style: TextStyle(
                 color: Colors.blue,decoration: TextDecoration.underline
               ),),
               )
