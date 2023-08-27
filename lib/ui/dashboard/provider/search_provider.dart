@@ -10,7 +10,6 @@ class SearchProvider extends _$SearchProvider{
     return '';
   }
 
-
   String _searchQuery = '';
 
   StateProvider<String> get searchQuery => StateProvider((ref) => _searchQuery);

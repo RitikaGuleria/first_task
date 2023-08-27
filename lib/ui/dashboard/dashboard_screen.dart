@@ -10,11 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   Dashboard() : super([]);
 // }
 
-
-
 class DashboardScreeen extends ConsumerStatefulWidget {
-
-
 
   @override
   ConsumerState createState() => _APIServiceState();
@@ -22,6 +18,16 @@ class DashboardScreeen extends ConsumerStatefulWidget {
 
 class _APIServiceState extends ConsumerState<DashboardScreeen> {
 
+  final List<String> surnames = ['Lawson','Funke','Fields','Edwards'];
+  final List<String> selectedSurnames = [];
+
+  List<User> filterUsersBySurnames(List<User> users, List<String> selectedSurnames)
+  {
+    if(selectedSurnames.isEmpty){
+      return users;
+    }
+    return users.where((user) => selectedSurnames.contains(user.lastName)).toList();
+  }
 
   @override
   void initState() {
@@ -56,7 +62,28 @@ class _APIServiceState extends ConsumerState<DashboardScreeen> {
                 ),
               ),
           ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 12),
+            child: Expanded(child: Container(
+              padding: const EdgeInsets.all(0),
+              margin: const EdgeInsets.all(0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: surnames.map((category) => FilterChip(label: Text(category),
+                    selected: selectedSurnames.contains(category),
+                    onSelected: (selected){
+                      setState(() {
+                        if(selected){
+                          selectedSurnames.add(category);
+                        }else{
+                          selectedSurnames.remove(category);
+                        }
+                      });
+                })).toList(),
+              ),
 
+            )),
+          ),
           Expanded(child: Consumer(
             builder: (context, ref, child) {
               // final userNotifier = ref.watch(userNotifierProvider);
@@ -66,12 +93,15 @@ class _APIServiceState extends ConsumerState<DashboardScreeen> {
 
               return users.when(
                   data: (users){
-                    final filterUsers = users.where((user) => user.firstName.contains(searchQuery) ||
+                    final searchUsersbyName = users.where((user) => user.firstName.contains(searchQuery) ||
                         user.lastName.contains(searchQuery) || user.email.contains(searchQuery)).toList();
+
+                    final filteredUser = filterUsersBySurnames(searchUsersbyName, selectedSurnames);
+
                     return ListView.builder(
-                      itemCount: filterUsers.length,
+                      itemCount: filteredUser.length,
                       itemBuilder: (context, index) {
-                        final user = filterUsers[index];
+                        final user = filteredUser[index];
                         return Card(
                           elevation: 6,
                           shape: RoundedRectangleBorder(
