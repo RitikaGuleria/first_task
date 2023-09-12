@@ -1,5 +1,5 @@
-import 'package:first_task/login.dart';
-import 'package:first_task/login_state.dart';
+import 'package:first_task/ui/login.dart';
+import 'package:first_task/ui/login_state.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +27,7 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
     final providerstate=ref.watch(loginStateNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Register User"),),
+      appBar: AppBar(title: const Text("Register User"),),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(36,12,36,18),
@@ -35,23 +35,23 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("Register a user",style: TextStyle(fontSize: 28,fontWeight: FontWeight.w300),),
-              SizedBox(height: 38,),
+              const SizedBox(height: 38,),
               TextField(
                   controller: usernameController,
                   decoration: InputDecoration(
-                    label: Text("username"),
+                    label: const Text("username"),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(21)),
                   ),
                   keyboardType: TextInputType.text,
                 ),
-              SizedBox(height: 18,),
+              const SizedBox(height: 18,),
                TextField(controller: emailController,
                   decoration: InputDecoration(
-                    label: Text("email"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(21)),
+                    label: const Text("email"),border: OutlineInputBorder(borderRadius: BorderRadius.circular(21)),
                   ),
                   keyboardType: TextInputType.text,
                 ),
-              SizedBox(height: 18,),
+              const SizedBox(height: 18,),
               TextField(controller: passwordController,
                   obscureText: !passwordVisible,
                   decoration: InputDecoration(
@@ -68,7 +68,7 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(21)),
                 ),),
 
-              SizedBox(height: 38,),
+              const SizedBox(height: 38,),
               ElevatedButton(onPressed: () async{
 
                 if(usernameController.text.isNotEmpty && passwordController.text.isNotEmpty){
@@ -87,9 +87,9 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
 
                 }
                 else{
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill all the fields to register..."),duration: Duration(seconds:2),));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill all the fields to register..."),duration: Duration(seconds:2),));
                 }
-              }, child: Text("Register"))
+              }, child: const Text("Register"))
             ],
           ),
         ),

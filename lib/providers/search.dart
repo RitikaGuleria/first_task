@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'search_provider.g.dart';
+part 'search.g.dart';
 
 @riverpod
-class SearchProvider extends _$SearchProvider{
+class Search extends _$Search{
   @override
   String build(){
     return '';
@@ -19,7 +19,6 @@ class SearchProvider extends _$SearchProvider{
     state = _searchQuery;
     return query;
   }
-
 }
 
 
