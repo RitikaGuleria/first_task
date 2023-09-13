@@ -1,4 +1,5 @@
 import "package:first_task/providers/dashboard.dart";
+import "package:first_task/providers/fetchUserLogin.dart";
 import 'package:first_task/ui/login_state.dart';
 import "package:first_task/project/routes/app_route_constants.dart";
 import "package:flutter/material.dart";
@@ -120,7 +121,7 @@ class _LogInState extends ConsumerState<LogIn> {
                         // String savedPassword=sharedpef.getString('password') ?? '';
 
                         var token = await ref
-                            .watch(dashboardProvider.notifier)
+                            .watch(fetchUserLoginProvider.notifier)
                             .fetchUserLogin(email, password);
 
                         // if(usernameController.text == savedUsername && passwordController.text == savedPassword) {

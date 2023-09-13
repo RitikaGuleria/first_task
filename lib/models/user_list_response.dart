@@ -8,9 +8,9 @@ part 'user_list_response.g.dart';
 class UserListResponse with _$UserListResponse{
   const factory UserListResponse({
     required int page,
-    required int perPage,
+    required int per_page,
     required int total,
-    required int totalPages,
+    required int total_pages,
     required List<User> data,
   }) = _UserListResponse;
 
