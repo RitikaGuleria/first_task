@@ -4,10 +4,32 @@ import 'package:first_task/models/user_list_response.dart';
 import 'package:first_task/repository/user_list_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'dashboard.g.dart';
+part 'dashboardList.g.dart';
 
 @riverpod
-class Dashboard extends _$Dashboard{
+class Dashboard extends _$Dashboard {
+
+  @override
+  Future<UserListResponse?> build() async {
+    return null;
+  }
+
+  Future<void> fetchUserDetails() async {
+    try {
+      final userData = await ref.read(userListRepositoryProvider).getUserData();
+      print("UserData: $userData");
+      state = AsyncValue.data(userData);
+    } on DioException catch (e) {
+      print("Error searching user response due to dio exception: $e");
+      state = AsyncValue.error(
+          "Error searching user response: $e", StackTrace.current);
+    } catch (e) {
+      print("Error searching user response: $e");
+      state =
+          AsyncValue.error("Error searching products: $e", StackTrace.current);
+    }
+  }
+}
 
   // @override
   // Future<List<User>> build() async {
@@ -52,35 +74,3 @@ class Dashboard extends _$Dashboard{
 //     }
 //   }
 
-    @override
-    Future<UserListResponse?> build() async{
-        return null;
-    }
-
-    Future<void> fetchUserDetails() async{
-      try{
-        final userData = await ref.read(userListRepositoryProvider).getUserData();
-        print("UserData: $userData");
-        state = AsyncValue.data(userData);
-      }on DioException catch(e){
-        print("Error searching user response due to dio exception: $e");
-        state = AsyncValue.error("Error searching user response: $e", StackTrace.current);
-      } catch(e){
-        print("Error searching user response: $e");
-        state = AsyncValue.error("Error searching products: $e", StackTrace.current);
-      }
-    }
-
-    // Future<AsyncValue<String>> fetchUserLogin(String email,String password) async{
-    //   try{
-    //     final userData = await ref.read(userListRepositoryProvider).loginUser(email, password);
-    //     return AsyncValue.data(userData);
-    //   }on DioException catch(e){
-    //     print("Error searching user response due to dio exception: $e");
-    //     return AsyncValue.error("Error searching user response: $e", StackTrace.current);
-    //   } catch(e){
-    //     print("Error searching user response: $e");
-    //     return AsyncValue.error("Error searching products: $e", StackTrace.current);
-    //   }
-    // }
-}

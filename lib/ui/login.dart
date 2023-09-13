@@ -1,6 +1,4 @@
-import "package:first_task/providers/dashboard.dart";
 import "package:first_task/providers/fetchUserLogin.dart";
-import 'package:first_task/ui/login_state.dart';
 import "package:first_task/project/routes/app_route_constants.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -21,8 +19,7 @@ class _LogInState extends ConsumerState<LogIn> {
   bool passwordVisible = false;
   bool isLoading = false;
 
-  late SharedPreferences loginData;
-  late bool newUser;
+  // late SharedPreferences loginData;
 
   @override
   void initState() {
@@ -31,11 +28,11 @@ class _LogInState extends ConsumerState<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    final providerstate = ref.read(loginStateNotifierProvider);
+
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign In"),
+        title: const Text("Sign In"),centerTitle: true,
       ),
       body: Center(
         child: Padding(
@@ -72,22 +69,7 @@ class _LogInState extends ConsumerState<LogIn> {
                 decoration: InputDecoration(
                     hintText: "ex- cityslicka",
                     labelText: "Password",
-                    helperText:
-                        "Password must contain special characters- @,#,&",
-                    suffixIcon: IconButton(
-                      icon: Icon(passwordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () {
-                        // setState(() {
-                        //   passwordVisible = !passwordVisible;
-                        // },
-                        // );
-                        ref
-                            .watch(loginStateNotifierProvider.notifier)
-                            .togglePasswordVisibility();
-                      },
-                    ),
+                    helperText: "Password must contain special characters- @,#,&",
                     alignLabelWithHint: false,
                     filled: true,
                     border: OutlineInputBorder(
@@ -99,72 +81,33 @@ class _LogInState extends ConsumerState<LogIn> {
                 height: 38,
               ),
               ElevatedButton(
-                onPressed: isLoading
-                    ? null
-                    : () async {
+                onPressed: isLoading ? null : () async {
                         var email = usernameController.text;
                         var password = passwordController.text;
 
-                        // if(usernameController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-                        // setState(() {
-                        //   isLoading = true;
-                        // });
-
-                        ref
-                            .watch(loginStateNotifierProvider.notifier)
-                            .setLoading(isLoading = true);
-
-                        //if credentials are correct- succesfully logged in
                         var sharedpef = await SharedPreferences.getInstance();
-                        //
-                        // String savedUsername=sharedpef.getString('username') ?? '';
-                        // String savedPassword=sharedpef.getString('password') ?? '';
 
-                        var token = await ref
-                            .watch(fetchUserLoginProvider.notifier)
-                            .fetchUserLogin(email, password);
-
-                        // if(usernameController.text == savedUsername && passwordController.text == savedPassword) {
+                        var token = await ref.read(fetchUserLoginProvider.notifier).fetchUserLogin(email, password);
 
                         sharedpef.setString("user_token", token.value.toString());
-                        // sharedpef.setBool(SplashScreenState.KEYLOGIN, true);
 
-                        GoRouter.of(context).pushNamed(MyAppRouteConstants.dashboardRouteName);
-                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
-
-                        // }else{
-                        //   //incorrect credentials
-                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid Credentials'),duration: Duration(seconds: 2),));
-                        //   // setState(() {
-                        //   // isLoading = false;
-                        //   // });
-                        //   ref.watch(loginStateNotifierProvider.notifier).setLoading(isLoading=false);
-                        // }
-                      }
-                // else{
-                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Both fields are required to log in..."),duration: Duration(seconds: 2),));
-                //
-                // }
-
-                // }
-                ,
+                        if(email.isNotEmpty && password.isNotEmpty){
+                          context.pushNamed(MyAppRouteConstants.dashboardRouteName);
+                        }
+                      },
                 child: isLoading
                     ? const CircularProgressIndicator()
                     : const Text("Sign in"),
               ),
-              const SizedBox(
-                height: 18,
-              ),
+
+              const SizedBox(height: 18,),
+
               GestureDetector(
                 onTap: () {
-                  GoRouter.of(context)
-                      .pushNamed(MyAppRouteConstants.registerRouteName);
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterUser()));
+                  context.pushNamed(MyAppRouteConstants.registerRouteName);
                 },
-                child: const Text(
-                  'Do not have an account? Register here',
-                  style: TextStyle(
-                      color: Colors.blue, decoration: TextDecoration.underline),
+                child: const Text('Do not have an account? Register here',
+                  style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
                 ),
               )
             ],

@@ -36,7 +36,7 @@ class MyAppRouter {
         builder: (context, state) {
           return  DashboardScreen();
         },
-      )
+      ),
     ],
   );
 }
