@@ -28,11 +28,10 @@ class _LogInState extends ConsumerState<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign In"),centerTitle: true,
+        title: const Text("Sign In"),
+        centerTitle: true,
       ),
       body: Center(
         child: Padding(
@@ -69,7 +68,8 @@ class _LogInState extends ConsumerState<LogIn> {
                 decoration: InputDecoration(
                     hintText: "ex- cityslicka",
                     labelText: "Password",
-                    helperText: "Password must contain special characters- @,#,&",
+                    helperText:
+                        "Password must contain special characters- @,#,&",
                     alignLabelWithHint: false,
                     filled: true,
                     border: OutlineInputBorder(
@@ -81,33 +81,43 @@ class _LogInState extends ConsumerState<LogIn> {
                 height: 38,
               ),
               ElevatedButton(
-                onPressed: isLoading ? null : () async {
+                onPressed: isLoading
+                    ? null
+                    : () async {
                         var email = usernameController.text;
                         var password = passwordController.text;
 
                         var sharedpef = await SharedPreferences.getInstance();
 
-                        var token = await ref.read(fetchUserLoginProvider.notifier).fetchUserLogin(email, password);
 
-                        sharedpef.setString("user_token", token.value.toString());
 
-                        if(email.isNotEmpty && password.isNotEmpty){
+                        if (email.isNotEmpty && password.isNotEmpty) {
+                          var token = await ref.read(fetchUserLoginProvider.notifier).fetchUserLogin(email, password);
+                          sharedpef.setString("user_token", token.value.toString());
+                          if(!mounted) return;
+
                           context.pushNamed(MyAppRouteConstants.dashboardRouteName);
+                        }
+                        else {
+                          if(!mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill both the fields"), duration: Duration(seconds: 2),));
                         }
                       },
                 child: isLoading
                     ? const CircularProgressIndicator()
                     : const Text("Sign in"),
               ),
-
-              const SizedBox(height: 18,),
-
+              const SizedBox(
+                height: 18,
+              ),
               GestureDetector(
                 onTap: () {
                   context.pushNamed(MyAppRouteConstants.registerRouteName);
                 },
-                child: const Text('Do not have an account? Register here',
-                  style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+                child: const Text(
+                  'Do not have an account? Register here',
+                  style: TextStyle(
+                      color: Colors.blue, decoration: TextDecoration.underline),
                 ),
               )
             ],

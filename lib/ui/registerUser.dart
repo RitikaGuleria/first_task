@@ -10,7 +10,7 @@ class RegisterUser extends ConsumerStatefulWidget {
   const RegisterUser({super.key});
 
   @override
-  _RegisterUserState createState() => _RegisterUserState();
+  ConsumerState createState() => _RegisterUserState();
 }
 
 class _RegisterUserState extends ConsumerState<RegisterUser> {
@@ -91,6 +91,7 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
                     sharedpref.setString(
                         "register_token", token.value.toString());
                     // Navigator.of(context).pop();
+                    if(!mounted) return;
                     context.pushNamed(MyAppRouteConstants.loginRouteName);
                   },
                   child: const Text("Register"))

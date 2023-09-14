@@ -1,15 +1,14 @@
 import 'package:first_task/models/user.dart';
-import 'package:first_task/models/user_list_response.dart';
+import 'package:first_task/project/routes/app_route_config.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:first_task/providers/dashboardList.dart';
 import 'package:first_task/providers/search.dart';
-import 'package:first_task/repository/user_list_repository.dart';
-import 'package:first_task/repository/user_list_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
+  const DashboardScreen({super.key});
+
   @override
   ConsumerState createState() => _DashboardScreenState();
 }
@@ -45,8 +44,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         title: const Text("User List"),centerTitle: true,
         actions:  [
           IconButton(onPressed:() {
-                context.pushNamed(MyAppRouteConstants.loginRouteName);
-                }, icon:  Icon(Icons.logout))
+            MyAppRouter.router.go(MyAppRouteConstants.loginRouteName);
+                // context.pushNamed(MyAppRouteConstants.loginRouteName);
+                }, icon:  const Icon(Icons.logout))
         ],
       ),
       body: Column(
@@ -87,7 +87,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       if (users == null) {
                         return const Center(child: CircularProgressIndicator(),);
                       }
-                      final searchUsersByName = users?.data
+                      final searchUsersByName = users.data
                           .where((user) =>
                               user.firstName.contains(searchQuery) ||
                               user.lastName.contains(searchQuery) ||
@@ -96,13 +96,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                       print("Ritika data: $searchUsersByName");
 
-                      final filteredUser = filterUsersBySurnames(
-                          searchUsersByName!, selectedSurnames);
+                      // final filteredUser = filterUsersBySurnames(
+                      //     searchUsersByName!, selectedSurnames);
 
                       return ListView.builder(
-                        itemCount: searchUsersByName!.isEmpty ? users?.data.length : searchUsersByName.length,
+                        itemCount: searchUsersByName.isEmpty ? users.data.length : searchUsersByName.length,
                         itemBuilder: (context, index) {
-                          final user = searchUsersByName.isEmpty ? users?.data[index] : searchUsersByName[index];
+                          final user = searchUsersByName.isEmpty ? users.data[index] : searchUsersByName[index];
 
                           return UserDataCardWidget(user: user);
                         },
