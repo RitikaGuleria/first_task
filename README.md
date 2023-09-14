@@ -1,4 +1,4 @@
-Requirements:- 
+Flutter 1st task Requirements:- 
 1. Create Login and Registration Screen with TextEdtitingController and validation.
 2. Once token received store it inside sharedPref and when user restart app check whether he is logged in or not.
 3. Do conditional navigation on the basis of user login status (Between Login and Dashboard)
