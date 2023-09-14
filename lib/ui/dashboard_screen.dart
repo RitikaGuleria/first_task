@@ -139,7 +139,7 @@ class SearchWidget extends StatelessWidget {
     return TextField(
       onChanged: (query) {
         final ans =
-            ref.watch(searchProvider.notifier).updateSearchQuery(query);
+            ref.read(searchProvider.notifier).updateSearchQuery(query);
         print("Search: $ans");
       },
       decoration: InputDecoration(
