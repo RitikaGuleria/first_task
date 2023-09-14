@@ -43,11 +43,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("User List"),centerTitle: true,
-        // actions: const [
-        //   IconButton(onPressed: {
-        //
-        //   }, icon:  Icon(Icons.logout))
-        // ],
+        actions:  [
+          IconButton(onPressed:() {
+                context.pushNamed(MyAppRouteConstants.loginRouteName);
+                }, icon:  Icon(Icons.logout))
+        ],
       ),
       body: Column(
         children: [
