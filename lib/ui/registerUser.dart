@@ -104,9 +104,10 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
 
   @override
   void dispose() {
+    super.dispose();
     usernameController.dispose();
     passwordController.dispose();
     emailController.dispose();
-    super.dispose();
+    ref.invalidate(fetchUserLoginProvider);
   }
 }

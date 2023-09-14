@@ -118,6 +118,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       ),
     );
   }
+  @override
+  void dispose() {
+    super.dispose();
+    ref.invalidate(searchProvider);
+    ref.invalidate(dashboardProvider);
+  }
 }
 
 class SearchWidget extends StatelessWidget {

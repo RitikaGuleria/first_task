@@ -129,8 +129,9 @@ class _LogInState extends ConsumerState<LogIn> {
 
   @override
   void dispose() {
+    super.dispose();
     usernameController.dispose();
     passwordController.dispose();
-    super.dispose();
+    ref.invalidate(fetchUserLoginProvider);
   }
 }
