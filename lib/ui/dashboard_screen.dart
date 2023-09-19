@@ -48,8 +48,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           IconButton(onPressed:() {
             BottomNav.goRouter.go(BottomNav.loginPath);
             // context.pushNamed(BottomNav.login);
-            // BottomNav.login;
-            // MyAppRouter.router.go(MyAppRouteConstants.loginRouteName);
                 // context.pushNamed(MyAppRouteConstants.loginRouteName);
                 }, icon:  const Icon(Icons.logout))
         ],
