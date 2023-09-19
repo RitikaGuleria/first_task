@@ -1,4 +1,5 @@
 import 'package:first_task/providers/fetchUserLogin.dart';
+import 'package:first_task/ui/bottomNavigationBar/bottomNavigationBar.dart';
 import 'package:first_task/ui/login.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,8 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
                         "register_token", token.value.toString());
                     // Navigator.of(context).pop();
                     if(!mounted) return;
-                    context.pushNamed(MyAppRouteConstants.loginRouteName);
+                    // context.pushNamed(MyAppRouteConstants.loginRouteName);
+                    BottomNav.goRouter.pushNamed(BottomNav.registerationPath);
                   },
                   child: const Text("Register"))
             ],

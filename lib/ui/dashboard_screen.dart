@@ -3,8 +3,10 @@ import 'package:first_task/project/routes/app_route_config.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
 import 'package:first_task/providers/dashboardList.dart';
 import 'package:first_task/providers/search.dart';
+import 'package:first_task/ui/bottomNavigationBar/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -44,7 +46,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         title: const Text("User List"),centerTitle: true,
         actions:  [
           IconButton(onPressed:() {
-            MyAppRouter.router.go(MyAppRouteConstants.loginRouteName);
+            BottomNav.goRouter.go(BottomNav.loginPath);
+            // context.pushNamed(BottomNav.login);
+            // BottomNav.login;
+            // MyAppRouter.router.go(MyAppRouteConstants.loginRouteName);
                 // context.pushNamed(MyAppRouteConstants.loginRouteName);
                 }, icon:  const Icon(Icons.logout))
         ],

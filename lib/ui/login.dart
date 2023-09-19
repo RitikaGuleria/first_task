@@ -1,5 +1,7 @@
 import "package:first_task/providers/fetchUserLogin.dart";
 import "package:first_task/project/routes/app_route_constants.dart";
+import "package:first_task/ui/bottomNavigationBar/ScreenA.dart";
+import "package:first_task/ui/bottomNavigationBar/bottomNavigationBar.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -7,6 +9,8 @@ import "package:shared_preferences/shared_preferences.dart";
 
 class LogIn extends ConsumerStatefulWidget {
   const LogIn({super.key});
+
+  // final String detailsPath;
 
   @override
   ConsumerState createState() => _LogInState();
@@ -28,6 +32,7 @@ class _LogInState extends ConsumerState<LogIn> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign In"),
@@ -96,8 +101,11 @@ class _LogInState extends ConsumerState<LogIn> {
                           sharedpef.setString("user_token", token.value.toString());
                           if(!mounted) return;
 
-                          context.pushNamed(MyAppRouteConstants.dashboardRouteName);
+
+                          // context.pushNamed(MyAppRouteConstants.dashboardRouteName);
+                          BottomNav.goRouter.pushNamed(BottomNav.homeBottomTab);
                         }
+
                         else {
                           if(!mounted) return;
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill both the fields"), duration: Duration(seconds: 2),));
@@ -112,7 +120,8 @@ class _LogInState extends ConsumerState<LogIn> {
               ),
               GestureDetector(
                 onTap: () {
-                  context.pushNamed(MyAppRouteConstants.registerRouteName);
+                  // context.pushNamed(MyAppRouteConstants.registerRouteName);
+                  BottomNav.goRouter.go(BottomNav.registerationPath);
                 },
                 child: const Text(
                   'Do not have an account? Register here',

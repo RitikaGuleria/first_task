@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:first_task/project/routes/app_route_config.dart';
 import 'package:first_task/project/routes/app_route_constants.dart';
+import 'package:first_task/ui/bottomNavigationBar/bottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,11 +23,13 @@ class SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(seconds: 1), () {
       if (isLoggedIn != null) {
-        MyAppRouter.router.go(MyAppRouteConstants.dashboardRouteName);
+
+        BottomNav.goRouter.pushNamed(BottomNav.homeBottomTab);
         // context.pushNamed(MyAppRouteConstants.dashboardRouteName);
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
       } else {
-        context.pushNamed(MyAppRouteConstants.loginRouteName);
+        BottomNav.goRouter.pushNamed(BottomNav.loginPath);
+        // context.pushNamed(MyAppRouteConstants.loginRouteName);
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
       }
     });
