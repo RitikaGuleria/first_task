@@ -24,11 +24,11 @@ class SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 1), () {
       if (isLoggedIn != null) {
 
-        BottomNav.goRouter.pushNamed(BottomNav.homeBottomTab);
+        BottomNav.goRouter.go(BottomNav.homeBottomTab);
         // context.pushNamed(MyAppRouteConstants.dashboardRouteName);
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
       } else {
-        BottomNav.goRouter.pushNamed(BottomNav.loginPath);
+        BottomNav.goRouter.go(BottomNav.loginPath);
         // context.pushNamed(MyAppRouteConstants.loginRouteName);
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()));
       }

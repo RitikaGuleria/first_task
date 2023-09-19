@@ -94,7 +94,7 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
                     // Navigator.of(context).pop();
                     if(!mounted) return;
                     // context.pushNamed(MyAppRouteConstants.loginRouteName);
-                    BottomNav.goRouter.pushNamed(BottomNav.registerationPath);
+                    BottomNav.goRouter.go(BottomNav.registerationPath);
                   },
                   child: const Text("Register"))
             ],

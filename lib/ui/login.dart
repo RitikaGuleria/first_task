@@ -103,7 +103,7 @@ class _LogInState extends ConsumerState<LogIn> {
 
 
                           // context.pushNamed(MyAppRouteConstants.dashboardRouteName);
-                          BottomNav.goRouter.pushNamed(BottomNav.homeBottomTab);
+                          BottomNav.goRouter.go(BottomNav.homeBottomTab);
                         }
 
                         else {
