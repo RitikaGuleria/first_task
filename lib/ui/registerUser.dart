@@ -24,7 +24,9 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Register User"),
+        title: const Text("Register User"),leading: BackButton(
+        onPressed: () => BottomNav.goRouter.go(BottomNav.loginPath),
+      ),
         centerTitle: true,
       ),
       body: Center(

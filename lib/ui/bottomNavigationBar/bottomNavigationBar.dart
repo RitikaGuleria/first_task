@@ -119,4 +119,9 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
     );
   }
 
+  @override
+  void dispose(){
+
+  }
 }
+

@@ -43,10 +43,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("User List"),centerTitle: true,
+        title: const Text("User List"),
         actions:  [
           IconButton(onPressed:() {
-            BottomNav.goRouter.go(BottomNav.loginPath);
+            BottomNav.goRouter.push(BottomNav.loginPath);
             // context.pushNamed(BottomNav.login);
                 // context.pushNamed(MyAppRouteConstants.loginRouteName);
                 }, icon:  const Icon(Icons.logout))
