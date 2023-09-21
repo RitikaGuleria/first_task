@@ -41,12 +41,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    ref.watch(BottomNav().goRouter);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("User List"),
         actions:  [
           IconButton(onPressed:() {
-            BottomNav.goRouter.push(BottomNav.loginPath);
+            context.go(BottomNav.loginPath);
             // context.pushNamed(BottomNav.login);
                 // context.pushNamed(MyAppRouteConstants.loginRouteName);
                 }, icon:  const Icon(Icons.logout))
@@ -126,6 +129,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     super.dispose();
     ref.invalidate(searchProvider);
     ref.invalidate(dashboardProvider);
+    ref.invalidate(BottomNav().goRouter);
   }
 }
 

@@ -1,18 +1,20 @@
 import 'package:first_task/ui/dashboard_screen.dart';
-import 'package:first_task/ui/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ScreenA extends StatelessWidget {
+import 'bottomNavigationBar.dart';
+
+class ScreenA extends ConsumerWidget {
 
   const ScreenA({Key? key}) : super(key: key);
 
-  // final String detailsPath;
-  // final StatefulNavigationShell navigationShell;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+
+    ref.watch(BottomNav().goRouter);
+
     return  const DashboardScreen();
   }
 

@@ -7,20 +7,22 @@ void main() {
   runApp(const ProviderScope(child: MyApp(),),);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+
+    final goRouter = ref.watch(BottomNav().goRouter);
 
      return MaterialApp.router(
       // home: SplashScreen(),
-      //  routerConfig: BottomNav(),
-      // debugShowCheckedModeBanner: false,
+      //  routerConfig: goRouter,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.indigo),
-      routeInformationParser: BottomNav.goRouter.routeInformationParser,
-      routerDelegate: BottomNav.goRouter.routerDelegate,
-      routeInformationProvider: BottomNav.goRouter.routeInformationProvider,
+      routeInformationParser: goRouter.routeInformationParser,
+      routerDelegate: goRouter.routerDelegate,
+      routeInformationProvider: goRouter.routeInformationProvider,
     );
   }
 }

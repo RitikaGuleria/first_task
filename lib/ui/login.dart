@@ -103,7 +103,8 @@ class _LogInState extends ConsumerState<LogIn> {
 
 
                           // context.pushNamed(MyAppRouteConstants.dashboardRouteName);
-                          BottomNav.goRouter.go(BottomNav.homeBottomTab);
+                          // BottomNav.goRouter.go(BottomNav.homeBottomTab);
+                          context.go(BottomNav.homeBottomTab);
                         }
 
                         else {
@@ -121,7 +122,8 @@ class _LogInState extends ConsumerState<LogIn> {
               GestureDetector(
                 onTap: () {
                   // context.pushNamed(MyAppRouteConstants.registerRouteName);
-                  BottomNav.goRouter.go(BottomNav.registerationPath);
+                  // BottomNav.goRouter.go(BottomNav.registerationPath);
+                  context.go(BottomNav.registerationPath);
                 },
                 child: const Text(
                   'Do not have an account? Register here',

@@ -25,7 +25,7 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Register User"),leading: BackButton(
-        onPressed: () => BottomNav.goRouter.go(BottomNav.loginPath),
+        onPressed: () => context.go(BottomNav.loginPath),
       ),
         centerTitle: true,
       ),
@@ -96,7 +96,7 @@ class _RegisterUserState extends ConsumerState<RegisterUser> {
                     // Navigator.of(context).pop();
                     if(!mounted) return;
                     // context.pushNamed(MyAppRouteConstants.loginRouteName);
-                    BottomNav.goRouter.go(BottomNav.registerationPath);
+                    context.go(BottomNav.registerationPath);
                   },
                   child: const Text("Register"))
             ],
